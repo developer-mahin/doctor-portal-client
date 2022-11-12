@@ -1,22 +1,21 @@
 import React from "react";
 import chair from "../../../assets//images/chair.png";
 import background from "../../../assets/images/bg.png";
+import PrimaryButton from "../../../components/PrimaryButton/PrimaryButton";
 
 const Banner = () => {
 
   const bannerBg = {
     backgroundImage: `url(${background})`,
     width: "100%",
-    height: "100vh",
     backgroundPosition: "center",
     backgroundSize: "cover",
-    backgroundRepeat: "noRepeat",
-    margin:"20px 0px"
+    backgroundRepeat: "no-repeat",
   };
 
   return (
-    <div style={bannerBg} className="hero lg:py-52 py-11 banner-img">
-      <div className="hero-content flex-col lg:flex-row-reverse">
+    <div style={bannerBg} className="hero lg:py-52 py-9 banner-img ">
+      <div className="hero-content flex-col lg:flex-row-reverse max-w-[1400px] mx-auto">
         <img src={chair} className="lg:w-1/2 rounded-lg shadow-2xl" alt="" />
         <div>
           <h1 className="lg:text-5xl text-4xl font-bold">
@@ -27,9 +26,7 @@ const Banner = () => {
             industry. Lorem Ipsum has been the industry's standard dummy text
             ever since the
           </p>
-          <button className="btn  bg-gradient-to-r from-secondary to-primary hover:bg-gradient-to-r hover:from-primary hover:to-secondary   text-white border-none px-6">
-            Get Started
-          </button>
+          <PrimaryButton>GET STARTED</PrimaryButton>
         </div>
       </div>
     </div>

@@ -5,24 +5,34 @@ const Navbar = () => {
   const menuItems = (
     <React.Fragment>
       <li>
-        <Link to="/home">Home</Link>
+        <Link className="font-semibold" to="/home">
+          Home
+        </Link>
       </li>
       <li tabIndex={0}>
-        <Link to="/about" className="justify-between">
+        <Link className="font-semibold justify-between" to="/about">
           About
         </Link>
       </li>
       <li>
-        <Link to="/appointment">Appointment</Link>
+        <Link className="font-semibold" to="/appointment">
+          Appointment
+        </Link>
       </li>
       <li>
-        <Link to="/reviews">Reviews</Link>
+        <Link className="font-semibold" to="/reviews">
+          Reviews
+        </Link>
       </li>
       <li>
-        <Link to="/contact_us">Contact Us</Link>
+        <Link className="font-semibold" to="/contact_us">
+          Contact Us
+        </Link>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <Link className="font-semibold" to="/login">
+          Login
+        </Link>
       </li>
     </React.Fragment>
   );
