@@ -1,18 +1,28 @@
-import React, { useEffect, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { format } from "date-fns";
+import React, { useState } from "react";
+import BigSpinner from "../../../components/Spinner/BigSpinner/BigSpinner";
 import AppointmentModal from "../AppointmentModal/AppointmentModal";
 import AppointmentOption from "../AppointmentOption/AppointmentOption";
 
-const AvailableAppointment = ({selectedDate}) => {
-  const [availableAppointment, setAvailableAppointment] = useState([]);
-    const [treatment, setTreatment] = useState(null) // is appointment option just different name
+const AvailableAppointment = ({ selectedDate }) => {
+  const [treatment, setTreatment] = useState(null); // is appointment option just different name
+  const date = format(selectedDate, "PP");
 
+  const { data: availableAppointment = [], refetch, isLoading } = useQuery({
+    queryKey: ["availableAppointment", date],
+    queryFn: async () => {
+      const res = await fetch(
+        `http://localhost:5000/appointmentOption?date=${date}`
+      );
+      const result = await res.json();
+      return result;
+    },
+  });
 
-  useEffect(() => {
-    fetch("services.json")
-      .then((res) => res.json())
-      .then((data) => setAvailableAppointment(data));
-  }, []);
-
+  if(isLoading){
+    return <BigSpinner></BigSpinner>
+  }
 
   return (
     <div className="max-w-[1400px] mx-auto ">
@@ -25,9 +35,14 @@ const AvailableAppointment = ({selectedDate}) => {
           ></AppointmentOption>
         ))}
       </div>
-      {
-        treatment && <AppointmentModal selectedDate={selectedDate} treatment={treatment} />
-      }
+      {treatment && (
+        <AppointmentModal
+          refetch={refetch}
+          setTreatment={setTreatment}
+          selectedDate={selectedDate}
+          treatment={treatment}
+        />
+      )}
     </div>
   );
 };
