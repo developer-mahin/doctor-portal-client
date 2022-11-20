@@ -9,8 +9,6 @@ import Terms from "../Terms/Terms";
 import Testimonial from "../Testimonial/Testimonial";
 
 const Home = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
   return (
     <div className="">
       <Banner></Banner>

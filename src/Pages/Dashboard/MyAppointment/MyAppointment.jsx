@@ -23,7 +23,7 @@ const MyAppointment = () => {
   });
 
   return (
-    <div className="">
+    <div className="lg:px-12 lg:py-11 py-4">
       <h2 className="text-3xl font-semibold mb-5">My Appointment</h2>
       <div className="overflow-x-auto">
         <table className="table w-full">

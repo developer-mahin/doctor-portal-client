@@ -11,7 +11,6 @@ import {
   updateProfile,
 } from "firebase/auth";
 
-
 export const AuthContext = createContext();
 const auth = getAuth(app);
 const googleProvider = new GoogleAuthProvider();
@@ -33,17 +32,17 @@ const AuthProvider = ({ children }) => {
   const updateUserName = (name, photoURL) => {
     return updateProfile(auth.currentUser, {
       displayName: name,
-      photoURL: photoURL
+      photoURL: photoURL,
     });
   };
 
   const googleSignIn = () => {
-    return signInWithPopup(auth, googleProvider)
+    return signInWithPopup(auth, googleProvider);
   };
 
   const logOut = () => {
     setLoading(true);
-    return signOut(auth);
+    return signOut(auth)
   };
 
   useEffect(() => {

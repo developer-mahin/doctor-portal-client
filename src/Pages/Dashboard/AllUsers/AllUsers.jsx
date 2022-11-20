@@ -21,14 +21,17 @@ const AllUsers = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        toast.success(data.message);
-        refetch();
-      })
+        if (data.modifiedCount > 0) {
+          refetch();
+          return toast.success("Make admin successful");
+        }
+        toast.error(data.message);
+      });
   };
 
   return (
-    <div>
-      <h2 className="text-3xl font-semibold">All Users</h2>
+    <div className="lg:px-12 lg:py-11 py-4">
+      <h2 className="text-3xl font-semibold mb-5">All Users</h2>
       <div className="overflow-x-auto w-full">
         <table className="table w-full">
           <thead>

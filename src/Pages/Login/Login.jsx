@@ -14,7 +14,7 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { loginUser, googleSignIn } = useContext(AuthContext);
+  const { loginUser, googleSignIn, logOut } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
@@ -33,10 +33,9 @@ const Login = () => {
       .then((result) => {
         const user = result.user;
         // setLoginUserEmail(data.email);
-        getAccessToken(data.email)
+        getAccessToken(data.email);
         event.target.reset();
         toast.success("successfully login");
-        
       })
       .catch((error) => {
         toast.error(error.message);
@@ -53,10 +52,15 @@ const Login = () => {
       });
   };
 
-
   const getAccessToken = (email) => {
     fetch(`http://localhost:5000/jwt?email=${email}`)
-      .then((res) => res.json())
+      .then((res) => {
+        // if (res.status === 401 || res.status === 403) {
+        //   return logOut()
+            
+        // }
+        return res.json();
+      })
       .then((data) => {
         console.log(data);
         if (data.accessToken) {

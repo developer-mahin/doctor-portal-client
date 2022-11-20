@@ -112,7 +112,7 @@ const Navbar = () => {
             Doctors Portal
           </Link>
         </div>
-        <div className="navbar-end hidden lg:flex">
+        <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal p-0">{menuItems}</ul>
         </div>
         <div className="navbar-end flex md:hidden">
