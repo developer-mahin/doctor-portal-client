@@ -9,7 +9,7 @@ const AppointmentModal = ({
   setTreatment,
   refetch,
 }) => {
-  const { name, slots } = treatment;
+  const { name, slots, price } = treatment;
   const { user } = useContext(AuthContext);
 
   const handleBooking = (event) => {
@@ -25,6 +25,7 @@ const AppointmentModal = ({
       date,
       treatment: name,
       slot,
+      price,
       userName,
       phone,
       email,

@@ -1,5 +1,4 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../../context/AuthContext/AuthProvider";
+import React from "react";
 import Appointment from "../Appointment/Appointment";
 import Banner from "../Banner/Banner";
 import Contact from "../Contact/Contact";

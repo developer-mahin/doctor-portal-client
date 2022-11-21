@@ -7,7 +7,6 @@ import { Link, useNavigate } from "react-router-dom";
 import registerJson from "../../assets/lotifile/register.json";
 import SmallSpinner from "../../components/Spinner/SmallSpinner/SmallSpinner";
 import { AuthContext } from "../../context/AuthContext/AuthProvider";
-import useToken from "../../hooks/useToken";
 
 const Register = () => {
   const {

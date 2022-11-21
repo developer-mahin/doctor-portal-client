@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
+import { Link } from "react-router-dom";
 import { AuthContext } from "../../../context/AuthContext/AuthProvider";
 
 const MyAppointment = () => {
-  const { user } = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   const url = `http://localhost:5000/bookings?email=${user?.email}`;
 
@@ -17,6 +18,13 @@ const MyAppointment = () => {
           )}`,
         },
       });
+      if (res.status === 401 || res.status === 403) {
+        return logOut()
+          .then(() => {})
+          .then((err) => {
+            console.error(err.message);
+          });
+      }
       const data = await res.json();
       return data;
     },
@@ -34,16 +42,27 @@ const MyAppointment = () => {
               <th>Treatment</th>
               <th>Date</th>
               <th>Time</th>
+              <th>Payment</th>
             </tr>
           </thead>
           <tbody>
-            {bookings.map((booking, i) => (
+            {bookings?.map((booking, i) => (
               <tr key={i}>
                 <th>{i + 1}</th>
                 <td>{booking.userName}</td>
                 <td>{booking.treatment}</td>
                 <td>{booking.date}</td>
                 <td>{booking.slot}</td>
+                <td>
+                  {booking.price && !booking.paid && (
+                    <Link to={`/dashboard/payment/${booking._id}`}>
+                      <button className="btn btn-primary btn-sm">Pay</button>
+                    </Link>
+                  )}
+                  {booking.price && booking.paid && (
+                    <small className="text-green-500 text-base">Paid</small>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>

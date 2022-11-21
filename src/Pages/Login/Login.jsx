@@ -6,7 +6,7 @@ import loginJson from "../../assets/lotifile/login.json";
 import Lottie from "lottie-react";
 import { AuthContext } from "../../context/AuthContext/AuthProvider";
 import toast from "react-hot-toast";
-import useToken from "../../hooks/useToken";
+import SmallSpinner from "../../components/Spinner/SmallSpinner/SmallSpinner";
 
 const Login = () => {
   const {
@@ -14,10 +14,11 @@ const Login = () => {
     formState: { errors },
     handleSubmit,
   } = useForm();
-  const { loginUser, googleSignIn, logOut } = useContext(AuthContext);
+  const { loginUser, googleSignIn } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
   const from = location.state?.from?.pathname || "/";
+  const [loading, setLoading] = useState(false);
 
   // console.log(location?.state)
 
@@ -29,6 +30,7 @@ const Login = () => {
   // }
 
   const handleLogin = (data, event) => {
+    setLoading(true);
     loginUser(data.email, data.password)
       .then((result) => {
         const user = result.user;
@@ -36,9 +38,11 @@ const Login = () => {
         getAccessToken(data.email);
         event.target.reset();
         toast.success("successfully login");
+        setLoading(false);
       })
       .catch((error) => {
         toast.error(error.message);
+        setLoading(false);
       });
   };
 
@@ -54,13 +58,7 @@ const Login = () => {
 
   const getAccessToken = (email) => {
     fetch(`http://localhost:5000/jwt?email=${email}`)
-      .then((res) => {
-        // if (res.status === 401 || res.status === 403) {
-        //   return logOut()
-            
-        // }
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         console.log(data);
         if (data.accessToken) {
@@ -121,11 +119,13 @@ const Login = () => {
                 </span>
               </label>
             </div>
-            <input
+            <button
               className="w-full bg-gradient-to-r from-primary to-secondary hover:from-secondary hover:to-primary border-none px-6 py-3 text-white rounded-lg font-semibold cursor-pointer uppercase"
               type="submit"
-              value="login"
-            />
+            >
+              {" "}
+              {loading ? <SmallSpinner></SmallSpinner> : "Login"}
+            </button>
           </form>
           <div>
             <div className="flex flex-col w-full border-opacity-50">
